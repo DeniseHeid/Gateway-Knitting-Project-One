@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+		h3 {
+		position: fixed;
+		z-index: 1000;
+		width: 300px;
+		left: 50%;
+		margin-left: -150px;
+		text-align: center;
+	  }
+	  
+	  p {
+		position: fixed;
+		z-index: 1000;
+		width: 300px;
+		left: 75%;
+		margin-left: -150px;
+		text-align: center;
+		font-size: 125%;
+	  }
+	  
+	  
+	  
+	  
+    </style>
+  </head>
+
+  <body>
+  
+  <h3>  Knitting Events in 2017 </h3>
+  <p>  zoom out to see more events </p>
+   
+  
+    <div id="map"></div>
+    <script>
+
+      // When the user clicks the marker, an info window opens.
+
+      function initMap() {
+		
+var locations = [
+{name: "Rhinebeck", lat: 41.932423, lng: -73.910522, event: "<b> Sheep & Wool Festival</b>, Rhinebeck, NY - October 21st-22nd, 2017,<a href='http://sheepandwool.com/'> Rhinebeck </a>"  },
+{name: "San Antonio", lat: 29.425479, lng: -98.490452, event: "<b> CampStitches</b>, San Antonio, TX - Jan 5th-9th, 2017, <a href='https://www.knittinguniverse.com/CampSanAntonio'> San Antonio </a>"},
+{name: "New York City", lat: 40.758612, lng: -73.986247, event: "<b> VogueKnitting Live</b>, NYC, NY - Jan 13th-15th, 2017, <a href='https://www.vogueknittinglive.com/newyork'> New York City, NY </a>"},
+{name: "Santa Clara", lat: 37.404671, lng: -121.975247, event: "<b> StitchesWest</b>, Santa Clara, CA - Feb 22nd-23rd, 2017, <a href='https://www.knittinguniverse.com/West2017'> Santa Clara </a>"},
+{name: "Hartford", lat: 41.762565, lng: -72.668009, event: "<b> StitchesUnited </b>, Hartford, CT - April 28th-30th, 2017, <a href='https://www.knittinguniverse.com/STITCHESunited2017'> Hartford </a>"},
+{name: "Edinburgh", lat: 55.940682, lng: -3.368418, event: "<b> The Knitting Stitching Show </b>, Edinburgh, Scotland - April 27th-30th, 2017, <a href='http://www.theknittingandstitchingshow.com/edinburgh/'> Edinburgh </a>"},
+{name: "London", lat: 51.591614, lng: -0.132754, event: "<b> The Knitting Stitching Show </b>, London, UK - October 11th-15th, 2017, <a href='http://www.theknittingandstitchingshow.com/london'> London </a>"},
+{name: "Dublin", lat: 53.326480, lng: -6.224731, event: "<b> The Knitting Stitching Show </b>, Dublin, Ireland - November 9th-12th, 2017, <a href='http://www.theknittingandstitchingshow.com/dublin/'> Dublin </a>"},
+{name: "Harrogate", lat: 53.995409, lng: -1.542864, event: "<b> The Knitting Stitching Show </b>, Harrogate, UK - November 23rd-26th, 2017, <a href='http://www.theknittingandstitchingshow.com/harrogate/'> Harrogate </a>"},
+{name: "Shanghai", lat: 31.183914, lng: 121.491533, event: "<b> SPINEXPO </b>, Shanghai, PRC - February 28th - March 1st, 2nd, 2017, <a href='http://www.spinexpo.com/shanghai/'> Shanghai </a>"},
+{name: "Paris", lat: 48.840838, lng: 2.369991, event: "<b> SPINEXPO </b>, Paris, France - July 3rd-5th, 2017, <a href='http://www.spinexpo.com/paris/'> Paris </a>"},
+{name: "Brooklyn", lat: 40.728161, lng: -73.957476, event: "<b> SPINEXPO</b>, NYC, NY - July 18th-20th, 2017, <a href='http://www.spinexpo.com/new-york/'> Brooklyn, NY </a>"}
+];
+		
+		
+		var first = locations[0];
+		
+		var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: {lat:first.lat, lng:first.lng}
+        });
+
+		// alert zoom change	
+			// map.addListener('zoom_changed', function(){	
+				// setTimeout(function(){
+			//	$.each(markers, function(k,v) {
+				//	if (!map.getBounds().contains(v.getPosition()}
+		
+
+		
+		var markers = [];
+		
+		var infoWindows = [
+		{url: "http://sheepandwool.com/"},
+		{url: "https://www.knittinguniverse.com/CampSanAntonio"},
+		{url: "https://www.vogueknittinglive.com/newyork"},
+		{url: "https://www.knittinguniverse.com/West2017"},
+		{url: "https://www.knittinguniverse.com/STITCHESunited2017"},
+		{url: "http://www.theknittingandstitchingshow.com/edinburgh/"},
+		{url: "http://www.theknittingandstitchingshow.com/london/"},
+		{url: "http://www.theknittingandstitchingshow.com/dublin/"},
+		{url: "http://www.theknittingandstitchingshow.com/harrogate/"},
+		{url: "http://www.spinexpo.com/shanghai/"},
+		{url: "http://www.spinexpo.com/paris/"},
+		{url: "http://www.spinexpo.com/new-york/"}
+		];
+
+
+				
+		var open_window = null;		
+		for (i = 0; i < locations.length; i++) {
+				var v = locations[i];
+				markers[i] = new google.maps.Marker({
+				index: i,
+				position: {lat: v.lat, lng: v.lng},
+				map: map,
+				title: v.event,
+				animation: google.maps.Animation.DROP
+				});
+				infoWindows[i] = new google.maps.InfoWindow({
+				content: v.event})
+				
+				google.maps.event.addListener(markers[i], 'click', function(key){
+				return function(){
+					if (open_window)
+						open_window.close();
+					open_window = infoWindows[key];	
+					infoWindows[key].open(map, markers[key]);
+					}
+					}(i));
+				
+				
+				}
+				}
+				
+				
+					
+					
+			
+				
+			
+			
+			
+			
+		
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+      
+    </script>
+	
+		
+	
+	
+	
+	
+	
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGVHihm_JMrRgAX-hM1EZHZiiTMeJ78Wc&callback=initMap">
+    </script>
+	
+	
+  </body>
+</html>	

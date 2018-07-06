@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+	  body {background-color:rgb(190,226,248);}
+	  h3 {text-align: center;}
+	  p {text-align: center;} 
+	  
+    </style>
+  </head>
+  <body>
+    <h3>Knitting Event Locations in the year 2017   </h3>
+	<p>(A) Sheep & Wool Festival, Rhinebeck, NY - October 21st-22nd, 2017</p>
+	<p>(B) CampStitches, San Antonio, TX - Jan 5th-9th, 2017</p>
+	<p>(C) VogueKnitting Live, NYC, NY - Jan 13th-15th, 2017</p>
+	<p>(D) StitchesWest, Santa Clara, CA - Feb 22nd-23rd, 2017</p>
+	<p>(E) StitchesUnited, Hartford, CT - April 28th-30th, 2017</p>
+	<p>(F) The Knitting Stitching Show, Edinburgh, Scotland - April 27th-30th, 2017</p>
+	<p>(G) The Knitting Stitching Show, London, UK - October 11th-15th, 2017</p>
+	<p>(H) The Knitting Stitching Show, Dublin, Ireland - November 9th-12th, 2017</p>
+	<p>(I) The Knitting Stitching Show, Harrogate, UK - November 23rd-26th, 2017</p>
+	<p>(J) SPINEXPO, Shanghai, PRC - February 28th - March 1st, 2nd, 2017</p>
+	<p>(K) SPINEXPO, Paris, France - July 3rd-5th, 2017</p>
+	<p>(L) SPINEXPO, NYC, NY - July 18th-20th, 2017</p>
+	
+	<div id="map"></div>
+	 <script>
+
+      function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: 41.932423, lng: -73.910522}
+        });
+
+        // Create an array of alphabetical characters used to label the markers.
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Add some markers to the map.
+        // Note: The code uses the JavaScript Array.prototype.map() method to
+        // create an array of markers based on a given "locations" array.
+        // The map() method here has nothing to do with the Google Maps API.
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
+      var locations = [
+        {lat: 41.932423, lng: -73.910522},
+        {lat: 29.425479, lng: -98.490452},
+        {lat: 40.758612, lng: -73.986247},
+        {lat: 37.404671, lng: -121.975247},
+        {lat: 41.762565, lng: -72.668009},
+        {lat: 55.940682, lng: -3.368418},
+        {lat: 51.591614, lng: -0.132754},
+        {lat: 53.326480, lng: -6.224731},
+        {lat: 53.995409, lng: -1.542864},
+        {lat: 31.183914, lng: 121.491533},
+        {lat: 48.840838, lng: 2.369991},
+        {lat: 40.728161, lng: -73.957476}
+        
+      ]
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGVHihm_JMrRgAX-hM1EZHZiiTMeJ78Wc&callback=initMap">
+    </script>
+  </body>
+</html>
+
+
+

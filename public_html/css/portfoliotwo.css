@@ -1,0 +1,22 @@
+body {background-color: rgb(190,226,248)}
+
+h1 {font-size: 150%}
+h3{font-size: 100%}
+p {font-size: 125%}
+li {font-size: 125%}
+legend {font-size: 125%}
+label {font-size: 125%}
+
+div#learned {text-align: left}
+
+ul#contact {list-style-type: none}
+
+ul#horizontal {border-radius: 10px; border-bottom: 4px solid black; border-top: 4px solid black}
+ul#horizontal {padding: 0}
+ul#horizontal {background-color: rgb(223,220,222); list-style-type: none; line-height: 50px}
+ul#horizontal ul li {text-align: center; font-size: bold, font-size: 50%}
+
+ul#vertical {list-style-type: none}
+
+div#contact_info {text-align: center}
+footer {text-align: center}
